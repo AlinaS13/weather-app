@@ -35,7 +35,15 @@ export interface IAuthState {
   error: string | null | unknown;
   isAuth: boolean;
 }
-
+export interface UserData {
+  name: string | null;
+  email: string | null;
+}
+export interface RegisterParamsApi {
+  name: string;
+  email: string;
+  password: string;
+}
 // export interface IUserResponsData {
 //   _id: "string";
 //   name: "string";

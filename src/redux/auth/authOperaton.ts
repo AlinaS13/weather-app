@@ -5,6 +5,7 @@ import {
   createUserWithEmailAndPassword,
   updateProfile,
   signOut,
+  User,
 } from "firebase/auth";
 import {
   IFormValues,
@@ -18,7 +19,7 @@ export const registrationUser = createAsyncThunk<
   IUserCredentials,
   IFormValues,
   { rejectValue: string }
->("auth/registrationUser", async (userData, thunkAPI) => {
+>("auth/registrationUser", async (userData, { rejectWithValue }: any) => {
   try {
     await createUserWithEmailAndPassword(
       auth,
@@ -26,15 +27,20 @@ export const registrationUser = createAsyncThunk<
       userData.password
     );
 
-    await updateProfile(auth.currentUser, {
-      displayName: userData.name,
-    });
-
-    const { uid, displayName, email, accessToken } = auth.currentUser;
-    return { uid, displayName, email, accessToken };
+    // await updateProfile(auth.currentUser, {
+    //   displayName: userData.name,
+    // });
+    const userDataTmp = {
+      uid: auth.currentUser?.uid,
+      displayName: auth.currentUser?.displayName,
+      email: auth.currentUser?.email,
+      accessToken: "testToken",
+    };
+    // const { uid, displayName, email, accessToken } = auth.currentUser;
+    return userDataTmp as IUserCredentials;
   } catch (error: any) {
     toast.error("Something went wrong, try again");
-    return thunkAPI.rejectWithValue(error.message);
+    return rejectWithValue(error.message);
   }
 });
 
@@ -42,7 +48,7 @@ export const loginUser = createAsyncThunk<
   ILoginResponse,
   IFormValues,
   { rejectValue: string }
->("auth/loginUser", async (userData, thunkAPI) => {
+>("auth/loginUser", async (userData, { rejectWithValue }: any) => {
   try {
     const response = await signInWithEmailAndPassword(
       auth,
@@ -56,7 +62,7 @@ export const loginUser = createAsyncThunk<
     toast.error(
       "Sorry, we couldn't find your account! Check your email or password"
     );
-    return thunkAPI.rejectWithValue(error.message);
+    return rejectWithValue(error.message);
   }
 });
 

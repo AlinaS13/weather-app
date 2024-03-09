@@ -32,6 +32,13 @@ export const RegistationForm: React.FC = () => {
 
   const onSubmit: SubmitHandler<IFormValues> = (userData) => {
     dispatch(registrationUser(userData));
+    // dispatch(
+    //   registrationUser({
+    //     name: "register",
+    //     email: "ddd@ddd.com",
+    //     password: "password",
+    //   })
+    // );
   };
 
   const togglePasswordVisibility = () => {

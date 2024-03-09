@@ -16,17 +16,17 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    getCurrentUser: (state, action: PayloadAction<IUserCredentials>) => {
-      const { uid, displayName, email, token } = action.payload;
-      return {
-        ...state,
-        userId: uid,
-        name: displayName,
-        email,
-        token,
-        isAuth: true,
-      };
-    },
+    // getCurrentUser: (state, action: PayloadAction<IUserCredentials>) => {
+    //   const { uid, displayName, email, token } = action.payload;
+    //   return {
+    //     ...state,
+    //     userId: uid,
+    //     name: displayName,
+    //     email,
+    //     token,
+    //     isAuth: true,
+    //   };
+    // },
   },
   extraReducers: (builder) => {
     builder
