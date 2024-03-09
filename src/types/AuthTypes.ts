@@ -27,10 +27,10 @@ export interface ILoginResponse {
 }
 
 export interface IAuthState {
-  userId: string | null;
+  userId: string | null | undefined;
   name?: string | null;
   email: string | null | undefined;
-  token: string | null;
+  token: string | null | undefined;
   isAuthLoading: boolean;
   error: string | null | unknown;
   isAuth: boolean;

@@ -30,12 +30,9 @@ const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(
-        registrationUser.pending,
-        (state: IAuthState, { payload }: PayloadAction<string>) => {
-          state.isAuthLoading = true;
-        }
-      )
+      .addCase(registrationUser.pending, (state: IAuthState) => {
+        state.isAuthLoading = true;
+      })
       .addCase(
         registrationUser.fulfilled,
         (
@@ -51,19 +48,16 @@ const authSlice = createSlice({
           state.error = null;
         }
       )
-      .addCase(
-        registrationUser.rejected,
-        (state: IAuthState, action: PayloadAction<string>) => {
-          state.error = action.payload;
-          state.isAuthLoading = false;
-        }
-      )
+      .addCase(registrationUser.rejected, (state, action) => {
+        state.error = action.payload;
+        state.isAuthLoading = false;
+      })
       .addCase(loginUser.pending, (state) => {
         state.isAuthLoading = true;
       })
       .addCase(
         loginUser.fulfilled,
-        (state, action: PayloadAction<IUserCredentials>) => {
+        (state, action: PayloadAction<Partial<IUserCredentials>>) => {
           state.userId = action.payload.uid;
           state.name = action.payload.displayName;
           state.email = action.payload.email;
@@ -73,7 +67,7 @@ const authSlice = createSlice({
           state.error = null;
         }
       )
-      .addCase(loginUser.rejected, (state, action: PayloadAction<string>) => {
+      .addCase(loginUser.rejected, (state, action) => {
         state.error = action.payload;
         state.isAuthLoading = false;
       })
@@ -86,7 +80,7 @@ const authSlice = createSlice({
         state.isAuth = false;
         state.error = null;
       })
-      .addCase(logoutUser.rejected, (state, action: PayloadAction<string>) => {
+      .addCase(logoutUser.rejected, (state, action) => {
         state.error = action.payload;
         state.isAuthLoading = false;
       });
