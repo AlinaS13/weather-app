@@ -1,4 +1,6 @@
-export const loginValidation = {
+import { RegisterOptions } from "react-hook-form";
+
+export const loginValidation: RegisterOptions = {
   required: "Enter your name",
   validate: (value: string) => {
     if (value.match(/[а-яА-Я]/)) {
@@ -8,7 +10,7 @@ export const loginValidation = {
     return true;
   },
 };
-export const emailValidation = {
+export const emailValidation: RegisterOptions = {
   required: "Enter your email",
   validate: (value: string) => {
     if (!value.match(/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/)) {
@@ -19,7 +21,7 @@ export const emailValidation = {
   },
 };
 
-export const passwordValidation = {
+export const passwordValidation: RegisterOptions = {
   required: "Enter your password",
   validate: (value: string) => {
     if (value.length < 6) {
