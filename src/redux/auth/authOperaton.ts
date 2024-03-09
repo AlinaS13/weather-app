@@ -9,7 +9,7 @@ import {
 import {
   IFormValues,
   ILoginResponse,
-  ILoginUserData,
+  // ILoginUserData,
   IUserCredentials,
 } from "../../types/AuthTypes";
 import { toast } from "react-toastify";
@@ -18,7 +18,7 @@ export const registrationUser = createAsyncThunk<
   IUserCredentials,
   IFormValues,
   { rejectValue: string }
->("auth/registrationUser", async (userData: IFormValues, thunkAPI) => {
+>("auth/registrationUser", async (userData, thunkAPI) => {
   try {
     await createUserWithEmailAndPassword(
       auth,
@@ -40,9 +40,9 @@ export const registrationUser = createAsyncThunk<
 
 export const loginUser = createAsyncThunk<
   ILoginResponse,
-  ILoginUserData,
+  IFormValues,
   { rejectValue: string }
->("auth/loginUser", async (userData: IFormValues, thunkAPI) => {
+>("auth/loginUser", async (userData, thunkAPI) => {
   try {
     const response = await signInWithEmailAndPassword(
       auth,
