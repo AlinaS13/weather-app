@@ -5,6 +5,8 @@ import {
   createUserWithEmailAndPassword,
   // updateProfile,
   signOut,
+  User,
+  updateProfile,
 } from "firebase/auth";
 import {
   IFormValues,
@@ -26,17 +28,19 @@ export const registrationUser = createAsyncThunk<
       userData.password
     );
 
-    // await updateProfile(auth.currentUser, {
-    //   displayName: userData.name,
-    // });
-    const userDataTmp = {
-      uid: auth.currentUser?.uid,
-      displayName: auth.currentUser?.displayName,
-      email: auth.currentUser?.email,
-      accessToken: "testToken",
-    };
-    // const { uid, displayName, email, accessToken } = auth.currentUser;
-    return userDataTmp as IUserCredentials;
+    await updateProfile(auth.currentUser as User, {
+      displayName: userData.name,
+    });
+    // const userDataTmp = {
+    //   uid: auth.currentUser?.uid,
+    //   displayName: auth.currentUser?.displayName,
+    //   email: auth.currentUser?.email,
+    //   accessToken: "testToken",
+    // };
+    const { uid, displayName, email } = auth.currentUser as User;
+    return { uid, displayName, email } as IUserCredentials;
+
+    // return userDataTmp as IUserCredentials;
   } catch (error: any) {
     toast.error("Something went wrong, try again");
     return rejectWithValue(error.message);

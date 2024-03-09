@@ -12,7 +12,7 @@ export interface IUserCredentials {
   uid: string | null;
   displayName: string | null;
   email: string;
-  accessToken: string;
+  // accessToken: string;
   token: string | null;
 }
 export interface ILoginUserData {
