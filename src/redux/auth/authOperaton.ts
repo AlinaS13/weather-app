@@ -3,7 +3,6 @@ import { auth } from "../../firebase/config";
 import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
-  // updateProfile,
   signOut,
   User,
   updateProfile,
@@ -11,7 +10,6 @@ import {
 import {
   IFormValues,
   ILoginResponse,
-  // ILoginUserData,
   IUserCredentials,
 } from "../../types/AuthTypes";
 import { toast } from "react-toastify";
@@ -20,7 +18,7 @@ export const registrationUser = createAsyncThunk<
   IUserCredentials,
   IFormValues,
   { rejectValue: string }
->("auth/registrationUser", async (userData, { rejectWithValue }: any) => {
+>("auth/registrationUser", async (userData, { rejectWithValue }) => {
   try {
     await createUserWithEmailAndPassword(
       auth,
@@ -31,16 +29,8 @@ export const registrationUser = createAsyncThunk<
     await updateProfile(auth.currentUser as User, {
       displayName: userData.name,
     });
-    // const userDataTmp = {
-    //   uid: auth.currentUser?.uid,
-    //   displayName: auth.currentUser?.displayName,
-    //   email: auth.currentUser?.email,
-    //   accessToken: "testToken",
-    // };
     const { uid, displayName, email } = auth.currentUser as User;
     return { uid, displayName, email } as IUserCredentials;
-
-    // return userDataTmp as IUserCredentials;
   } catch (error: any) {
     toast.error("Something went wrong, try again");
     return rejectWithValue(error.message);
@@ -51,7 +41,7 @@ export const loginUser = createAsyncThunk<
   ILoginResponse,
   IFormValues,
   { rejectValue: string }
->("auth/loginUser", async (userData, { rejectWithValue }: any) => {
+>("auth/loginUser", async (userData, { rejectWithValue }) => {
   try {
     const response = await signInWithEmailAndPassword(
       auth,
@@ -60,7 +50,7 @@ export const loginUser = createAsyncThunk<
     );
 
     const { uid, displayName, email } = response.user;
-    return { uid, displayName, email };
+    return { uid, displayName, email } as ILoginResponse;
   } catch (error: any) {
     toast.error(
       "Sorry, we couldn't find your account! Check your email or password"
@@ -80,36 +70,3 @@ export const logoutUser = createAsyncThunk<void, void, { rejectValue: string }>(
     }
   }
 );
-
-// export const loginUser = createAsyncThunk(
-//   "auth/loginUser",
-//   async ({ thunkAPI, ...userData }) => {
-//     try {
-//       const respons = await signInWithEmailAndPassword(
-//         auth,
-//         userData.email,
-//         userData.password
-//       );
-
-//       const { uid, displayName, email } = respons.user;
-//       return { uid, displayName, email };
-//     } catch (error) {
-//       toast.error(
-//         "Sorry, we couldn't find your account! Check your email or password"
-//       );
-//       return thunkAPI.rejectWithValue(error.message);
-//     }
-//   }
-// );
-
-// export const logoutUser = createAsyncThunk(
-//   "auth/logoutUser",
-//   async (thunkAPI) => {
-//     try {
-//       await signOut(auth);
-//       toast.info("Bye! See you soon!");
-//     } catch (error) {
-//       return thunkAPI.rejectWithValue(error.message);
-//     }
-//   }
-// );
