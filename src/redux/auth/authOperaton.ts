@@ -3,9 +3,8 @@ import { auth } from "../../firebase/config";
 import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
-  updateProfile,
+  // updateProfile,
   signOut,
-  User,
 } from "firebase/auth";
 import {
   IFormValues,

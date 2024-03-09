@@ -87,7 +87,7 @@ const authSlice = createSlice({
   },
 });
 
-export const { getCurrentUser } = authSlice.actions;
+// export const { getCurrentUser } = authSlice.actions;
 export default authSlice.reducer;
 
 // export const { registrationUser } = authSlice.actions;
