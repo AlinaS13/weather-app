@@ -3,12 +3,12 @@ import { IAuthState, IUserCredentials } from "../../types/AuthTypes";
 import { loginUser, logoutUser, registrationUser } from "./authOperaton";
 
 const initialState: IAuthState = {
-  userId: "",
-  name: "",
+  userId: null,
+  name: null,
   email: "",
-  token: "",
-  isAuthLoading: false,
+  token: null,
   error: null,
+  isAuthLoading: false,
   isAuth: false,
 };
 
@@ -32,13 +32,16 @@ const authSlice = createSlice({
     builder
       .addCase(
         registrationUser.pending,
-        (state, action: PayloadAction<string>) => {
+        (state: IAuthState, { payload }: PayloadAction<string>) => {
           state.isAuthLoading = true;
         }
       )
       .addCase(
         registrationUser.fulfilled,
-        (state, action: PayloadAction<IUserCredentials>) => {
+        (
+          state: IAuthState,
+          action: PayloadAction<Partial<IUserCredentials>>
+        ) => {
           state.userId = action.payload.uid;
           state.name = action.payload.displayName;
           state.email = action.payload.email;
@@ -50,7 +53,7 @@ const authSlice = createSlice({
       )
       .addCase(
         registrationUser.rejected,
-        (state, action: PayloadAction<string>) => {
+        (state: IAuthState, action: PayloadAction<string>) => {
           state.error = action.payload;
           state.isAuthLoading = false;
         }

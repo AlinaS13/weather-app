@@ -6,7 +6,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { HomePage } from "./pages/homePage/HomePage.tsx";
 import { RegistrationPage } from "./pages/registrationPage/RegistrationPage.tsx";
 import { LoginPage } from "./pages/loginPage/LoginPage.tsx";
-import AuthProvider from "./utils/privateRoute/AuthProvider.tsx";
+// import AuthProvider from "./utils/privateRoute/AuthProvider.tsx";
 import PrivateRoute from "./utils/privateRoute/PrivateRoute.tsx";
 import { Provider } from "react-redux";
 import { store } from "./redux/store.ts";

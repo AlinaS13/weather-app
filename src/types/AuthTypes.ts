@@ -9,7 +9,7 @@ export interface IFormValues {
   password: string;
 }
 export interface IUserCredentials {
-  uid: string;
+  uid: string | null;
   displayName: string | null;
   email: string;
   accessToken: string;
@@ -27,12 +27,12 @@ export interface ILoginResponse {
 }
 
 export interface IAuthState {
-  userId: string;
-  name: string;
-  email: string;
+  userId: string | null;
+  name?: string | null;
+  email: string | null | undefined;
   token: string | null;
   isAuthLoading: boolean;
-  error: string | null;
+  error: string | null | unknown;
   isAuth: boolean;
 }
 

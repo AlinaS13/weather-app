@@ -18,7 +18,7 @@ export const registrationUser = createAsyncThunk<
   IUserCredentials,
   IFormValues,
   { rejectValue: string }
->("auth/registrationUser", async (userData, thunkAPI) => {
+>("auth/registrationUser", async (userData: IFormValues, thunkAPI) => {
   try {
     await createUserWithEmailAndPassword(
       auth,
@@ -32,7 +32,7 @@ export const registrationUser = createAsyncThunk<
 
     const { uid, displayName, email, accessToken } = auth.currentUser;
     return { uid, displayName, email, accessToken };
-  } catch (error: any) {
+  } catch (error: unknown) {
     toast.error("Something went wrong, try again");
     return thunkAPI.rejectWithValue(error.message);
   }
@@ -42,7 +42,7 @@ export const loginUser = createAsyncThunk<
   ILoginResponse,
   ILoginUserData,
   { rejectValue: string }
->("auth/loginUser", async (userData, thunkAPI) => {
+>("auth/loginUser", async (userData: IFormValues, thunkAPI) => {
   try {
     const response = await signInWithEmailAndPassword(
       auth,
@@ -52,20 +52,21 @@ export const loginUser = createAsyncThunk<
 
     const { uid, displayName, email } = response.user;
     return { uid, displayName, email };
-  } catch (error: any) {
+  } catch (error: unknown) {
     toast.error(
       "Sorry, we couldn't find your account! Check your email or password"
     );
     return thunkAPI.rejectWithValue(error.message);
   }
 });
+
 export const logoutUser = createAsyncThunk<void, void, { rejectValue: string }>(
   "auth/logoutUser",
   async (_, thunkAPI) => {
     try {
       await signOut(auth);
       toast.info("Bye! See you soon!");
-    } catch (error: any) {
+    } catch (error: unknown) {
       return thunkAPI.rejectWithValue(error.message);
     }
   }
