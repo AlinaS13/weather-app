@@ -1,0 +1,85 @@
+@mixin font-size($fontSize, $fontWeight, $lineHeight: false) {
+  font-size: calc($fontSize / 16) + rem;
+  font-weight: $fontWeight;
+  @if $lineHeight {
+    line-height: calc($lineHeight / $fontSize);
+  } @else {
+    line-height: normal;
+  }
+}
+
+@mixin reset-list {
+  display: block;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+@mixin reset-list-item {
+  margin-bottom: 0;
+}
+
+@mixin mobile {
+  @media screen and (min-width: 375px) {
+    @content;
+  }
+}
+@mixin tablet {
+  @media screen and (min-width: 768px) {
+    @content;
+  }
+}
+@mixin lessTablet {
+  @media screen and (max-width: 767px) {
+    @content;
+  }
+}
+@mixin desctop {
+  @media screen and (max-width: 1440px) {
+    @content;
+  }
+}
+
+@mixin retina {
+  @media (min-device-pixel-ratio: 2),
+    (min-resolution: 192dpi),
+    (min-resolution: 2dppx) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media screen and (min-width: 1440px) {
+    @content;
+  }
+}
+
+@mixin lessDesktop {
+  @media screen and (max-width: 1439px) {
+    @content;
+  }
+}
+
+@mixin media($size) {
+  @media screen and (min-width: ($size + px)) {
+    @content;
+  }
+}
+
+$breakpoint-mobile: 375px;
+$breakpoint-tablet: 768px;
+$breakpoint-desktop: 1440px;
+
+@mixin container {
+  padding-left: 16px;
+  padding-right: 16px;
+
+  @include tablet {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+  @include desktop {
+    padding-left: 100px;
+    padding-right: 100px;
+  }
+}

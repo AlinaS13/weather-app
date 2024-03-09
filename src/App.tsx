@@ -1,17 +1,14 @@
-import { Link, Outlet } from "react-router-dom";
-import "./App.css";
+import { Outlet } from "react-router-dom";
 
-function App() {
+// import { useAppDispatch } from "./utils/hooks/redux-hooks";
+
+const App: React.FC = () => {
+  // const dispatch = useAppDispatch();
   return (
     <>
-      <nav>
-        <Link to="/weather-app/">Home</Link>
-        <Link to="/weather-app/registration">Registration</Link>
-        <Link to="/weather-app/login">Login</Link>
-      </nav>
       <Outlet />
     </>
   );
-}
+};
 
 export default App;
