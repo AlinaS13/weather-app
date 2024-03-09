@@ -30,8 +30,8 @@ export const RegistationForm: React.FC = () => {
     control,
   });
 
-  const onSubmit: SubmitHandler<IFormValues> = (data) => {
-    dispatch(registrationUser(data));
+  const onSubmit: SubmitHandler<IFormValues> = (userData) => {
+    dispatch(registrationUser(userData));
   };
 
   const togglePasswordVisibility = () => {

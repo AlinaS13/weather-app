@@ -32,7 +32,7 @@ export const registrationUser = createAsyncThunk<
 
     const { uid, displayName, email, accessToken } = auth.currentUser;
     return { uid, displayName, email, accessToken };
-  } catch (error) {
+  } catch (error: any) {
     toast.error("Something went wrong, try again");
     return thunkAPI.rejectWithValue(error.message);
   }
@@ -52,7 +52,7 @@ export const loginUser = createAsyncThunk<
 
     const { uid, displayName, email } = response.user;
     return { uid, displayName, email };
-  } catch (error) {
+  } catch (error: any) {
     toast.error(
       "Sorry, we couldn't find your account! Check your email or password"
     );
@@ -65,7 +65,7 @@ export const logoutUser = createAsyncThunk<void, void, { rejectValue: string }>(
     try {
       await signOut(auth);
       toast.info("Bye! See you soon!");
-    } catch (error) {
+    } catch (error: any) {
       return thunkAPI.rejectWithValue(error.message);
     }
   }

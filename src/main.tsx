@@ -62,21 +62,21 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <ThemeProvider theme={theme}>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-          <AuthProvider>
-            <RouterProvider router={router} />
-            <ToastContainer
-              position="top-right"
-              autoClose={2500}
-              hideProgressBar={false}
-              newestOnTop={false}
-              closeOnClick
-              rtl={false}
-              pauseOnFocusLoss
-              draggable
-              pauseOnHover
-              theme="colored"
-            />
-          </AuthProvider>
+          {/* <AuthProvider> */}
+          <RouterProvider router={router} />
+          <ToastContainer
+            position="top-right"
+            autoClose={2500}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="colored"
+          />
+          {/* </AuthProvider> */}
         </PersistGate>
       </Provider>
     </ThemeProvider>
