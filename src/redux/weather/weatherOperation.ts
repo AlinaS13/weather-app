@@ -5,7 +5,7 @@ import {
   IWeatherData,
 } from "../../types/WeatherTypes";
 import { toast } from "react-toastify";
-const apiKey = "2475c9fe37a0fd389e88ed18ac6a56f9";
+const apiKey = import.meta.env.VITE_OPENWEATHER_API_KEY;
 
 export const fetchCityList = async (
   input: string

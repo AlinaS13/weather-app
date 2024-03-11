@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from "axios";
-const apiKey = "33606619-e92c95447caff2b5a446312ae";
+const apiKey = import.meta.env.VITE_PIXABAY_API_KEY;
 const background = document.querySelector("body");
 
 interface ImageResponse {
