@@ -6,7 +6,6 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { HomePage } from "./pages/homePage/HomePage.tsx";
 import { RegistrationPage } from "./pages/registrationPage/RegistrationPage.tsx";
 import { LoginPage } from "./pages/loginPage/LoginPage.tsx";
-// import AuthProvider from "./utils/privateRoute/AuthProvider.tsx";
 import PrivateRoute from "./utils/privateRoute/PrivateRoute.tsx";
 import { Provider } from "react-redux";
 import { store } from "./redux/store.ts";
@@ -22,18 +21,27 @@ import { theme } from "./utils/theme/theme.tsx";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import PublicRoute from "./utils/privateRoute/PublicRoute.tsx";
+import { WeatherInCityPage } from "./pages/WeatherInCityPage/WeatherInCityPage.tsx";
 
 const router = createBrowserRouter([
   {
     path: "/weather-app/",
     element: <App />,
-    errorElement: <div>404 page not fund</div>,
+    errorElement: <div style={{ textAlign: "center" }}>404 page not fund</div>,
     children: [
       {
         path: "/weather-app/",
         element: (
           <PrivateRoute>
             <HomePage />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/weather-app/weather-in-city/:cityName",
+        element: (
+          <PrivateRoute>
+            <WeatherInCityPage />
           </PrivateRoute>
         ),
       },
@@ -62,7 +70,6 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <ThemeProvider theme={theme}>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-          {/* <AuthProvider> */}
           <RouterProvider router={router} />
           <ToastContainer
             position="top-right"
@@ -76,7 +83,6 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
             pauseOnHover
             theme="colored"
           />
-          {/* </AuthProvider> */}
         </PersistGate>
       </Provider>
     </ThemeProvider>

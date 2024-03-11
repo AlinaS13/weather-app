@@ -19,7 +19,7 @@ import {
 } from "../../utils/validation/validation";
 import { useState } from "react";
 import { useAppDispatch } from "../../utils/hooks/redux-hooks";
-import { registrationUser } from "../../redux/auth/authOperaton";
+import { registrationUser } from "../../redux/auth/authOperation";
 
 export const RegistationForm: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -59,7 +59,6 @@ export const RegistationForm: React.FC = () => {
               variant="standard"
               fullWidth={true}
               onChange={(e) => field.onChange(e)}
-              // value={field.value}
               error={!!errors.name?.message}
               helperText={errors?.name?.message}
               defaultValue={field.value}
@@ -77,10 +76,10 @@ export const RegistationForm: React.FC = () => {
               variant="standard"
               fullWidth={true}
               onChange={(e) => field.onChange(e)}
-              // value={field.value}
               error={!!errors.email?.message}
               helperText={errors?.email?.message}
               defaultValue={field.value}
+              autoComplete="username"
             />
           )}
         />
@@ -96,10 +95,10 @@ export const RegistationForm: React.FC = () => {
                 variant="standard"
                 fullWidth={true}
                 onChange={(e) => field.onChange(e)}
-                // value={field.value}
                 error={!!errors.password?.message}
                 helperText={errors?.password?.message}
                 defaultValue={field.value}
+                autoComplete="current-password"
               />
               <div className={styles.eyeBox} onClick={togglePasswordVisibility}>
                 {passwordVisibility ? (

@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 
 import authReducer from "./auth/authSlice";
+import weatherReducer from "./weather/weatherSlice";
 import storage from "redux-persist/lib/storage";
 
 import {
@@ -17,11 +18,22 @@ import {
 const authPersistConfig = {
   key: "auth",
   storage,
-  // whitelist: ["token"],
 };
+const weatherPersistConfig = {
+  key: "weather",
+  storage,
+};
+
+const persistedAuthReducer = persistReducer(authPersistConfig, authReducer);
+
+const persistedWeatherReducer = persistReducer(
+  weatherPersistConfig,
+  weatherReducer
+);
 export const store = configureStore({
   reducer: {
-    auth: persistReducer(authPersistConfig, authReducer),
+    auth: persistedAuthReducer,
+    weather: persistedWeatherReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

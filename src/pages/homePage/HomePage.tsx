@@ -1,37 +1,46 @@
-import { Button, Typography } from "@mui/material";
-import { logoutUser } from "../../redux/auth/authOperaton";
+import { Box } from "@mui/material";
+import { useAppDispatch, useAppSelector } from "../../utils/hooks/redux-hooks";
 
-import { useAppDispatch } from "../../utils/hooks/redux-hooks";
-import styles from "./HomePage.module.scss";
-import WeatherSVG from "../../assets/svg/WeatherSVG";
-import LogoutIcon from "@mui/icons-material/Logout";
+import { CardWeather } from "../../components/cardCardWeather/CardWeather";
+import { SearchWeather } from "../../components/searchWeather/SearchWeather";
+import { removeCity } from "../../redux/weather/weatherSlice";
+import { Header } from "../../components/header/Header";
+import { ICity } from "../../types/WeatherTypes";
+
 export const HomePage: React.FC = () => {
   const dispatch = useAppDispatch();
+  const cities = useAppSelector((state) => state.weather.cities);
+  const background: HTMLBodyElement | null = document.querySelector("body");
+  if (background) {
+    background.style.backgroundImage = "";
+  }
+
+  const handleRemoveCity = (cityToRemove: number) => {
+    dispatch(removeCity(cityToRemove));
+  };
   return (
-    <header className={styles.header}>
-      <div className={styles.logoWrp}>
-        <Typography variant="h4" gutterBottom>
-          Weather App
-        </Typography>
-        <WeatherSVG />
-      </div>
-      <Button
+    <>
+      <Header />
+      <SearchWeather />
+      <Box
         sx={{
-          color: "#000000",
-          backgroundColor: "#transparent",
-          "&:hover": {
-            backgroundColor: "transparent",
-            color: "#ffffff",
-          },
-        }}
-        endIcon={<LogoutIcon />}
-        type="button"
-        onClick={() => {
-          dispatch(logoutUser());
+          width: "100%",
+          display: "flex",
+          padding: "20px",
+          flexWrap: "wrap",
+          justifyContent: "start",
+          gap: "20px",
+          marginBottom: "40px",
         }}
       >
-        Logout
-      </Button>
-    </header>
+        {cities.map((city: ICity) => (
+          <CardWeather
+            key={city.id}
+            city={city}
+            onRemove={() => handleRemoveCity(city.id)}
+          />
+        ))}
+      </Box>
+    </>
   );
 };

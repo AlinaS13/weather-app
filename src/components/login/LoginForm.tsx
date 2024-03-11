@@ -18,7 +18,7 @@ import {
 } from "../../utils/validation/validation";
 import { useState } from "react";
 import { useAppDispatch } from "../../utils/hooks/redux-hooks";
-import { loginUser } from "../../redux/auth/authOperaton";
+import { loginUser } from "../../redux/auth/authOperation";
 
 export const LoginForm: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -58,10 +58,10 @@ export const LoginForm: React.FC = () => {
               variant="standard"
               fullWidth={true}
               onChange={(e) => field.onChange(e)}
-              // value={field.value}
               error={!!errors.email?.message}
               helperText={errors?.email?.message}
               defaultValue={field.value}
+              autoComplete="username"
             />
           )}
         />
@@ -77,10 +77,10 @@ export const LoginForm: React.FC = () => {
                 variant="standard"
                 fullWidth={true}
                 onChange={(e) => field.onChange(e)}
-                // value={field.value}
                 error={!!errors.password?.message}
                 helperText={errors?.password?.message}
                 defaultValue={field.value}
+                autoComplete="current-password"
               />
               <div className={styles.eyeBox} onClick={togglePasswordVisibility}>
                 {passwordVisibility ? (

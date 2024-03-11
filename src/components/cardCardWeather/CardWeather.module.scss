@@ -1,0 +1,13 @@
+.lernMoreLink {
+  text-align: center;
+  color: #000000;
+  margin-bottom: 10px;
+  font-family: Roboto;
+  font-size: 18px;
+
+  &:hover,
+  &:focus {
+    text-decoration-line: underline;
+    color: #fff;
+  }
+}
