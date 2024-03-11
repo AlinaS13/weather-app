@@ -2,7 +2,7 @@ import { initializeApp } from "firebase/app";
 import { Auth, getAuth } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIRE_BASE_API_KEY,
+  apiKey: "AIzaSyC0_nB0sxUZevkf5wHQQm-ODo-V_fxKfO0",
   authDomain: "weather-app-504c1.firebaseapp.com",
   projectId: "weather-app-504c1",
   storageBucket: "weather-app-504c1.appspot.com",
