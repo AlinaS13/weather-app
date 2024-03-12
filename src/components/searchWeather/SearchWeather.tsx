@@ -1,5 +1,5 @@
 import { Autocomplete, Box, Stack, TextField } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { ICity, ICityListResponse } from "../../types/WeatherTypes";
 import {
@@ -17,34 +17,22 @@ export const SearchWeather: React.FC = () => {
   const cities = useAppSelector((state: RootState) => state.weather.cities);
   const [inputValue, setInputValue] = useState<string>("");
   const [cityList, setCityList] = useState<ICityListResponse[]>([]);
-  const [selectedCity, setSelectedCity] = useState<string | null>(null);
 
-  let typingTimer: ReturnType<typeof setTimeout>;
+  const typingTimerRef = useRef<NodeJS.Timeout | null>(null);
 
   const handleInputChange = (searchString: string) => {
-    clearTimeout(typingTimer);
+    if (typingTimerRef.current) {
+      clearTimeout(typingTimerRef.current);
+    }
     const newInputValue = searchString.trimStart();
     setInputValue(newInputValue);
-    if (newInputValue.length >= 3) {
-      typingTimer = setTimeout(async () => {
-        try {
-          const cityArr = await fetchCityList(newInputValue);
-          setCityList(cityArr);
-        } catch (error) {
-          console.error("Error fetching city list:", error);
-        }
-      }, 300);
-    } else {
-      setCityList([]);
-    }
   };
+
   const handleCitySelection = async (value: string) => {
-    setSelectedCity(value);
     setInputValue(value);
-    console.log(selectedCity);
+
     try {
       const response = await fetchWeatherByCity(value);
-
       const newCityData: ICity = {
         id: response.id,
         name: response.name,
@@ -59,8 +47,28 @@ export const SearchWeather: React.FC = () => {
     } catch (error) {
       console.error("Error fetching temperature data:", error);
     }
-    setSelectedCity(null);
   };
+
+  useEffect(() => {
+    if (inputValue.length >= 3) {
+      typingTimerRef.current = setTimeout(async () => {
+        try {
+          const cityArr = await fetchCityList(inputValue);
+          setCityList(cityArr);
+        } catch (error) {
+          console.error("Error fetching city list:", error);
+        }
+      }, 300);
+    } else {
+      setCityList([]);
+    }
+    return () => {
+      if (typingTimerRef.current) {
+        clearTimeout(typingTimerRef.current);
+      }
+    };
+  }, [inputValue]);
+
   return (
     <>
       <Box
@@ -69,7 +77,7 @@ export const SearchWeather: React.FC = () => {
           justifyContent: "center",
           alignItems: "center",
           gap: "20px",
-          marginTop: "20px",
+          marginTop: "40px",
           marginBottom: "40px",
           marginLeft: "20px",
           marginRight: "20px",
@@ -84,12 +92,12 @@ export const SearchWeather: React.FC = () => {
           <Autocomplete
             sx={{
               "& + .MuiAutocomplete-popper .MuiAutocomplete-option": {
-                backgroundColor: "rgba(133, 170, 159, 0.5)",
                 color: "#000000",
+                backgroundColor: "rgba(133, 170, 159)",
               },
               "& + .MuiAutocomplete-popper .MuiAutocomplete-option[aria-selected='true']":
                 {
-                  backgroundColor: "rgba(133, 170, 159)",
+                  backgroundColor: "rgba(81, 172, 145, 0.5)",
                   color: "#000000",
                 },
             }}
@@ -105,10 +113,9 @@ export const SearchWeather: React.FC = () => {
             onChange={(event, value, reason) => {
               event.preventDefault();
               if (value && typeof value === "string") {
-                if (reason == "selectOption") {
+                if (reason === "selectOption") {
                   handleCitySelection(value);
                 }
-                setSelectedCity(value);
               }
             }}
             options={cityList.map((city) => `${city.name}, ${city.country}`)}

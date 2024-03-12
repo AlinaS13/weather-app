@@ -49,15 +49,10 @@ export const CardWeather: React.FC<CardWeatherProps> = ({ city, onRemove }) => {
       <Card
         sx={{
           position: "relative",
-          minWidth: 350,
-          minHeight: 250,
           backgroundColor: "rgba(133, 170, 159, 0.5)",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
           "&:hover": {
             boxShadow: "0px 8px 12px #00000051",
-            transform: "scale(1.03)",
+            transform: "scale(1.01)",
           },
         }}
       >

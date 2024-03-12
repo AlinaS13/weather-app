@@ -2,7 +2,7 @@ import axios, { AxiosResponse } from "axios";
 const apiKey = "33606619-e92c95447caff2b5a446312ae";
 const background = document.querySelector("body");
 
-interface ImageResponse {
+interface IImageResponse {
   largeImageURL: string;
 }
 
@@ -21,7 +21,7 @@ export const fetchBgImg = async (city: string): Promise<void> => {
 };
 
 const changeBcgImg = (
-  response: AxiosResponse<{ hits: ImageResponse[] }>
+  response: AxiosResponse<{ hits: IImageResponse[] }>
 ): void => {
   const images = response.data.hits;
   if (images.length > 0) {

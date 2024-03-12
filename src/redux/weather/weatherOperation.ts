@@ -32,6 +32,7 @@ export const fetchCityList = async (
     throw error;
   }
 };
+
 export const fetchWeatherByCity = async (
   cityName: string
 ): Promise<IWeatherData> => {
@@ -54,8 +55,9 @@ export const fetchWeatherCard = async (
   temperatureUnit: string
 ): Promise<IWeatherData> => {
   try {
-    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${temperatureUnit}&lang=en&appid=${apiKey}`;
-    const response: AxiosResponse<IWeatherData> = await axios.get(apiUrl);
+    const response: AxiosResponse<IWeatherData> = await axios.get(
+      `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${temperatureUnit}&lang=en&appid=${apiKey}`
+    );
     return response.data;
   } catch (error) {
     console.error("Error fetching weather data:", error);

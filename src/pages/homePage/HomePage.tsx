@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Grid } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../utils/hooks/redux-hooks";
 
 import { CardWeather } from "../../components/cardCardWeather/CardWeather";
@@ -22,25 +22,21 @@ export const HomePage: React.FC = () => {
     <>
       <Header />
       <SearchWeather />
-      <Box
-        sx={{
-          width: "100%",
-          display: "flex",
-          padding: "20px",
-          flexWrap: "wrap",
-          justifyContent: "start",
-          gap: "20px",
-          marginBottom: "40px",
-        }}
+      <Grid
+        container
+        spacing={{ xs: 2, md: 2 }}
+        columns={{ xs: 4, sm: 8, md: 12 }}
+        sx={{ padding: "20px" }}
       >
         {cities.map((city: ICity) => (
-          <CardWeather
-            key={city.id}
-            city={city}
-            onRemove={() => handleRemoveCity(city.id)}
-          />
+          <Grid item xs={4} sm={4} md={3} key={city.id}>
+            <CardWeather
+              city={city}
+              onRemove={() => handleRemoveCity(city.id)}
+            />
+          </Grid>
         ))}
-      </Box>
+      </Grid>
     </>
   );
 };

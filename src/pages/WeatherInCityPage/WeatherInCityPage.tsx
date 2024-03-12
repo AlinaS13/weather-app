@@ -185,13 +185,13 @@ export const WeatherInCityPage: React.FC = () => {
                     <LuSunrise
                       style={{ color: "rgb(255, 107, 9)", marginRight: "5px" }}
                     />
-                    Sunrise: {formatTime(weatherData.sys.sunset)}
+                    Sunrise: {formatTime(weatherData.sys.sunrise)}
                   </Typography>
                   <Typography variant="h5">
                     <LuSunset
                       style={{ color: "rgb(255, 107, 9)", marginRight: "5px" }}
                     />
-                    Sunset: {formatTime(weatherData.sys.sunrise)}
+                    Sunset:{formatTime(weatherData.sys.sunset)}
                   </Typography>
                 </Box>
               </CardContent>

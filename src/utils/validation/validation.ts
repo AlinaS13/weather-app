@@ -13,7 +13,7 @@ export const loginValidation: RegisterOptions = {
 export const emailValidation: RegisterOptions = {
   required: "Enter your email",
   validate: (value: string) => {
-    if (!value.match(/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/)) {
+    if (!value.match(/^\w+[\w.-]*@\w+[\w.-]*\.\w{2,3}$/)) {
       return "Invalid email format";
     }
 
