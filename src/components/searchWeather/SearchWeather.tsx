@@ -8,12 +8,14 @@ import {
 } from "../../redux/weather/weatherOperation";
 
 import { addCity } from "../../redux/weather/weatherSlice";
-import { useAppDispatch } from "../../utils/hooks/redux-hooks";
+import { useAppDispatch, useAppSelector } from "../../utils/hooks/redux-hooks";
+import { RootState } from "../../redux/store";
+import { toast } from "react-toastify";
 
 export const SearchWeather: React.FC = () => {
   const dispatch = useAppDispatch();
-
-  const [inputValue, setInputValue] = useState("");
+  const cities = useAppSelector((state: RootState) => state.weather.cities);
+  const [inputValue, setInputValue] = useState<string>("");
   const [cityList, setCityList] = useState<ICityListResponse[]>([]);
   const [selectedCity, setSelectedCity] = useState<string | null>(null);
 
@@ -23,7 +25,6 @@ export const SearchWeather: React.FC = () => {
     clearTimeout(typingTimer);
     const newInputValue = searchString.trimStart();
     setInputValue(newInputValue);
-
     if (newInputValue.length >= 3) {
       typingTimer = setTimeout(async () => {
         try {
@@ -39,8 +40,8 @@ export const SearchWeather: React.FC = () => {
   };
   const handleCitySelection = async (value: string) => {
     setSelectedCity(value);
-    console.log(selectedCity);
     setInputValue(value);
+    console.log(selectedCity);
     try {
       const response = await fetchWeatherByCity(value);
 
@@ -49,8 +50,12 @@ export const SearchWeather: React.FC = () => {
         name: response.name,
         temperatureUnit: "metric",
       };
-
-      dispatch(addCity(newCityData));
+      if (!cities.some((city) => city.id === newCityData.id)) {
+        dispatch(addCity(newCityData));
+        setInputValue("");
+      } else {
+        toast.error("City already added");
+      }
     } catch (error) {
       console.error("Error fetching temperature data:", error);
     }
@@ -66,6 +71,8 @@ export const SearchWeather: React.FC = () => {
           gap: "20px",
           marginTop: "20px",
           marginBottom: "40px",
+          marginLeft: "20px",
+          marginRight: "20px",
         }}
       >
         <Stack

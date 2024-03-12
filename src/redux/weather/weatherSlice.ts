@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ICity, IWeatherState } from "../../types/WeatherTypes";
 import { logoutUser } from "../auth/authOperation";
-import { toast } from "react-toastify";
 
 const initialState: IWeatherState = {
   cities: [],
@@ -12,11 +11,7 @@ const weatherSlice = createSlice({
   initialState,
   reducers: {
     addCity: (state, action: PayloadAction<ICity>) => {
-      if (!state.cities.some((city) => city.id === action.payload.id)) {
-        state.cities.push(action.payload);
-      } else {
-        toast.error("City already added");
-      }
+      state.cities.push(action.payload);
     },
     removeCity: (state, action: PayloadAction<number>) => {
       const cityIdToRemove = action.payload;

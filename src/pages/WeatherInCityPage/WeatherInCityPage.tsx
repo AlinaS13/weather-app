@@ -51,8 +51,7 @@ export const WeatherInCityPage: React.FC = () => {
         <Box
           sx={{
             padding: "20px",
-            backgroundColor: "rgba(41, 46, 41, 0.8)",
-            height: "100vh",
+            backgroundColor: "rgba(41, 46, 41, 0.3)",
           }}
         >
           <Box
