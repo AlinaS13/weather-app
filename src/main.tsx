@@ -27,7 +27,11 @@ const router = createBrowserRouter([
   {
     path: "/weather-app/",
     element: <App />,
-    errorElement: <div style={{ textAlign: "center" }}>404 page not fund</div>,
+    errorElement: (
+      <h2 style={{ textAlign: "center", marginTop: "20px" }}>
+        404 page not fund
+      </h2>
+    ),
     children: [
       {
         path: "/weather-app/",

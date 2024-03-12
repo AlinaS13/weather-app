@@ -56,7 +56,7 @@ export const CardWeather: React.FC<CardWeatherProps> = ({ city, onRemove }) => {
           alignItems: "center",
           justifyContent: "center",
           "&:hover": {
-            boxShadow: "0px 8px 12px #00000029",
+            boxShadow: "0px 8px 12px #00000051",
             transform: "scale(1.03)",
           },
         }}
@@ -108,7 +108,14 @@ export const CardWeather: React.FC<CardWeatherProps> = ({ city, onRemove }) => {
         )}
 
         <IconButton
-          sx={{ position: "absolute", top: 10, right: 50 }}
+          sx={{
+            position: "absolute",
+            top: 10,
+            right: 50,
+            "&:hover": {
+              color: "#fff",
+            },
+          }}
           aria-label="update"
           onClick={handleRefresh}
         >
@@ -116,7 +123,14 @@ export const CardWeather: React.FC<CardWeatherProps> = ({ city, onRemove }) => {
         </IconButton>
 
         <IconButton
-          sx={{ position: "absolute", top: 10, right: 10 }}
+          sx={{
+            position: "absolute",
+            top: 10,
+            right: 10,
+            "&:hover": {
+              color: "#fff",
+            },
+          }}
           aria-label="delete"
           onClick={() => onRemove(city.id)}
         >

@@ -9,10 +9,6 @@ export interface IWeatherState {
   cities: ICity[];
 }
 
-// export interface RootState {
-//   weather: IWeatherState;
-// }
-
 export interface IWeatherData {
   id: number;
   sys: {
@@ -42,14 +38,6 @@ export interface IWeatherData {
   };
 }
 
-// export interface OpenWeatherResponse {
-//   name: string;
-//   id: number;
-//   main: {
-//     temp: number;
-//   };
-// }
-
 export interface ICityList {
   name: string;
   id: number;
@@ -63,18 +51,3 @@ export interface ICityListResponse {
   name: string;
   country: string;
 }
-
-// export interface GeoNamesResponse {
-//   time: string;
-// }
-
-// export interface Forecast {
-//   dt_txt: string;
-//   main: {
-//     temp: number;
-//   };
-// }
-
-// export interface Resources {
-//   translation: Record<string, string>;
-// }

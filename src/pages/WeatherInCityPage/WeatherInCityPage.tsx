@@ -5,6 +5,12 @@ import { IWeatherData } from "../../types/WeatherTypes";
 import { useParams } from "react-router-dom";
 import { fetchWeatherByCity } from "../../redux/weather/weatherOperation";
 import { Box, Card, CardContent, Typography } from "@mui/material";
+import { WiHumidity } from "react-icons/wi";
+import { CiTempHigh } from "react-icons/ci";
+import { LuWind } from "react-icons/lu";
+import { LuSunrise } from "react-icons/lu";
+import { LuSunset } from "react-icons/lu";
+import { LiaTemperatureHighSolid } from "react-icons/lia";
 
 export const WeatherInCityPage: React.FC = () => {
   const { cityName } = useParams<{ cityName: string }>();
@@ -46,7 +52,6 @@ export const WeatherInCityPage: React.FC = () => {
           sx={{
             padding: "20px",
             backgroundColor: "rgba(41, 46, 41, 0.8)",
-
             height: "100vh",
           }}
         >
@@ -55,6 +60,7 @@ export const WeatherInCityPage: React.FC = () => {
               display: "flex",
               alignItems: "center",
               flexDirection: "column",
+              marginBottom: "20px",
             }}
           >
             <Typography variant="h2" gutterBottom>
@@ -116,12 +122,29 @@ export const WeatherInCityPage: React.FC = () => {
                 sx={{ display: "flex", gap: "10px", flexDirection: "column" }}
               >
                 <Typography variant="h5">
+                  <WiHumidity
+                    style={{
+                      color: "rgb(255, 107, 9)",
+                      width: "28px",
+                      height: "30px",
+                    }}
+                  />
                   Humidity: {weatherData?.main.humidity}&nbsp;%
                 </Typography>
                 <Typography variant="h5">
+                  <CiTempHigh
+                    style={{
+                      color: "rgb(255, 107, 9)",
+                      width: "28px",
+                      height: "28px",
+                    }}
+                  />
                   Pressure: {weatherData?.main.pressure}&nbsp;Pa
                 </Typography>
                 <Typography variant="h5">
+                  <LuWind
+                    style={{ color: "rgb(255, 107, 9)", marginRight: "5px" }}
+                  />
                   Wind speed: {weatherData?.wind.speed}&nbsp;m/s
                 </Typography>
               </CardContent>
@@ -142,6 +165,9 @@ export const WeatherInCityPage: React.FC = () => {
               >
                 <Box sx={{ display: "flex", gap: "10px" }}>
                   <Typography variant="h5" sx={{ color: "#ffffff" }}>
+                    <LiaTemperatureHighSolid
+                      style={{ color: "rgb(255, 107, 9)", marginRight: "5px" }}
+                    />
                     Min: {Math.round(weatherData.main.temp_min)}
                     <sup>o</sup>&nbsp;
                     <span>C</span>
@@ -157,10 +183,16 @@ export const WeatherInCityPage: React.FC = () => {
                   sx={{ display: "flex", gap: "10px", flexDirection: "column" }}
                 >
                   <Typography variant="h5">
-                    Sunset: {formatTime(weatherData.sys.sunrise)}
+                    <LuSunrise
+                      style={{ color: "rgb(255, 107, 9)", marginRight: "5px" }}
+                    />
+                    Sunrise: {formatTime(weatherData.sys.sunset)}
                   </Typography>
                   <Typography variant="h5">
-                    Sunrise: {formatTime(weatherData.sys.sunset)}
+                    <LuSunset
+                      style={{ color: "rgb(255, 107, 9)", marginRight: "5px" }}
+                    />
+                    Sunset: {formatTime(weatherData.sys.sunrise)}
                   </Typography>
                 </Box>
               </CardContent>
