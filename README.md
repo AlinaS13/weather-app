@@ -2,7 +2,7 @@
 
 A simple Weather Aplication
 
-The program architecture consists of fore distinct pages:
+The program architecture consists of four distinct pages:
 
 1. "Register" Page: A non-registered user is required to input their name, valid email, and password to log in to the application.
 
@@ -76,4 +76,4 @@ Start the server
 
 ## Author
 
-The site was designed and developed by Alina Shestopalopva.
+The site was designed and developed by Alina Shestopalova.
