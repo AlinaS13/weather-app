@@ -17,7 +17,11 @@ import { toast } from "react-toastify";
 export const registrationUser = createAsyncThunk<
   IUserCredentials,
   IFormValues,
-  { rejectValue: string }
+  {
+    rejectValue: {
+      errorMessage: string;
+    };
+  }
 >("auth/registrationUser", async (userData, { rejectWithValue }) => {
   try {
     await createUserWithEmailAndPassword(
@@ -31,16 +35,21 @@ export const registrationUser = createAsyncThunk<
     });
     const { uid, displayName, email } = auth.currentUser as User;
     return { uid, displayName, email } as IUserCredentials;
-  } catch (error: any) {
+  } catch (error) {
+    const errorMessage = (error as Error).message || "Unknown error occurred";
     toast.error("Something went wrong, try again");
-    return rejectWithValue(error.message);
+    return rejectWithValue({ errorMessage });
   }
 });
 
 export const loginUser = createAsyncThunk<
   ILoginResponse,
   IFormValues,
-  { rejectValue: string }
+  {
+    rejectValue: {
+      errorMessage: string;
+    };
+  }
 >("auth/loginUser", async (userData, { rejectWithValue }) => {
   try {
     const response = await signInWithEmailAndPassword(
@@ -51,22 +60,29 @@ export const loginUser = createAsyncThunk<
 
     const { uid, displayName, email } = response.user;
     return { uid, displayName, email } as ILoginResponse;
-  } catch (error: any) {
+  } catch (error) {
+    const errorMessage = (error as Error).message || "Unknown error occurred";
     toast.error(
       "Sorry, we couldn't find your account! Check your email or password"
     );
-    return rejectWithValue(error.message);
+    return rejectWithValue({ errorMessage });
   }
 });
 
-export const logoutUser = createAsyncThunk<void, void, { rejectValue: string }>(
-  "auth/logoutUser",
-  async (_, thunkAPI) => {
-    try {
-      await signOut(auth);
-      toast.info("Bye! See you soon!");
-    } catch (error: any) {
-      return thunkAPI.rejectWithValue(error.message);
-    }
+export const logoutUser = createAsyncThunk<
+  void,
+  void,
+  {
+    rejectValue: {
+      errorMessage: string;
+    };
   }
-);
+>("auth/logoutUser", async (_, thunkAPI) => {
+  try {
+    await signOut(auth);
+    toast.info("Bye! See you soon!");
+  } catch (error) {
+    const errorMessage = (error as Error).message || "Unknown error occurred";
+    return thunkAPI.rejectWithValue({ errorMessage });
+  }
+});

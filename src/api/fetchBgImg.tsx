@@ -14,7 +14,7 @@ export const fetchBgImg = async (city: string): Promise<void> => {
       );
 
     changeBcgImg(response);
-  } catch (error: any) {
+  } catch (error) {
     console.error("Error fetching suggestions:", error);
     throw error;
   }

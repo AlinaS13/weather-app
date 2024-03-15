@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from "axios";
+import axios, { AxiosResponse, AxiosError } from "axios";
 import {
   ICityList,
   ICityListResponse,
@@ -7,6 +7,9 @@ import {
 import { toast } from "react-toastify";
 const apiKey = "2475c9fe37a0fd389e88ed18ac6a56f9";
 
+interface CustomAxiosError extends AxiosError {
+  response?: AxiosResponse | undefined;
+}
 export const fetchCityList = async (
   input: string
 ): Promise<ICityListResponse[]> => {
@@ -27,7 +30,7 @@ export const fetchCityList = async (
     }));
 
     return uniqueNewList;
-  } catch (error: any) {
+  } catch (error) {
     console.error("Error fetching suggestions:", error);
     throw error;
   }
@@ -41,8 +44,9 @@ export const fetchWeatherByCity = async (
       `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=metric&lang=en&appid=${apiKey}`
     );
     return response.data;
-  } catch (error: any) {
-    if (error.response.status === 404) {
+  } catch (error) {
+    const axiosError = error as CustomAxiosError;
+    if (axiosError.response && axiosError.response.status === 404) {
       toast.error("City not found");
     }
     console.error("Error fetching temperature data:", error);
